@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "807810002194",
+    "project_id": "offside-yopal",
+    "storage_bucket": "offside-yopal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807810002194:android:ab92c76069b597916b97cb",
+        "android_client_info": {
+          "package_name": "com.example.offside_yopal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807810002194-r8lie36eo3rr7cll11maf75vn5f8jcgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-Glmi0Dzci495Ba81lGtiVl2i5H1JIQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807810002194-r8lie36eo3rr7cll11maf75vn5f8jcgt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
