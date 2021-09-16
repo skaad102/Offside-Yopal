@@ -38,6 +38,9 @@ dependencies:
   flutter_svg: ^0.22.0
   google_sign_in: ^5.0.7
   flutter_facebook_auth: ^3.5.1
+  syncfusion_flutter_calendar: ^19.1.58
+  cloud_firestore: ^1.0.7
+  firebase_database: ^6.1.2
 
 
 
@@ -67,10 +70,7 @@ flutter:
   assets:
     - assets/images/dark/
     - assets/images/ligth/
-    
-    
-   
-    
+
     
     
   # An image asset can refer to one or more resolution-specific "variants", see
