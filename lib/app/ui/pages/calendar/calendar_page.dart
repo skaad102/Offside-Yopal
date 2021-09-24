@@ -23,7 +23,6 @@ class CalendarPageState extends State<CalendarPage> {
 
   @override
   void initState() {
-    _initializeEventColor();
     getDataFromDatabase().then((results) {
       setState(() {
         if (results != null) {
@@ -73,22 +72,22 @@ class CalendarPageState extends State<CalendarPage> {
 
   _showCalendar() {
     if (querySnapshot != null) {
-      late List<Meeting> collection;
+      late List<Cita> collection;
       var showData = querySnapshot.value;
       Map<dynamic, dynamic> values = showData;
       List<dynamic> key = values.keys.toList();
       if (values != null) {
         for (int i = 0; i < key.length; i++) {
           data = values[key[i]];
-          collection = <Meeting>[];
+          collection = <Cita>[];
           final Random random = new Random();
-          collection.add(Meeting(
-              eventName: data['Subject'],
-              isAllDay: true,
+          collection.add(Cita(
+              event: data['Subject'],
+              diario: true,
               from: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['StartTime']),
               to: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['EndTime']),
               background: _colorCollection[random.nextInt(9)],
-              resourceId: data['ResourceId']));
+              user: data['ResourceId']));
         }
       } else {
         return Center(
@@ -104,25 +103,11 @@ class CalendarPageState extends State<CalendarPage> {
       );
     }
   }
-
-  void _initializeEventColor() {
-    this._colorCollection = <Color>[];
-    _colorCollection.add(const Color(0xFF0F8644));
-    _colorCollection.add(const Color(0xFF8B1FA9));
-    _colorCollection.add(const Color(0xFFD20100));
-    _colorCollection.add(const Color(0xFFFC571D));
-    _colorCollection.add(const Color(0xFF36B37B));
-    _colorCollection.add(const Color(0xFF01A1EF));
-    _colorCollection.add(const Color(0xFF3D4FB5));
-    _colorCollection.add(const Color(0xFFE47C73));
-    _colorCollection.add(const Color(0xFF636363));
-    _colorCollection.add(const Color(0xFF0A8043));
-  }
 }
 
-List<Meeting> _getDataSource(querySnapshot) {
+List<Cita> _getDataSource(querySnapshot) {
   dynamic data;
-  final List<Meeting> meetings = <Meeting>[];
+  final List<Cita> meetings = <Cita>[];
   final DateTime hoy = DateTime.now();
   final DateTime startTime =
       DateTime(hoy.year, hoy.month, hoy.day + 1, 9, 0, 0);
@@ -135,13 +120,13 @@ List<Meeting> _getDataSource(querySnapshot) {
     for (int i = 0; i < key.length; i++) {
       data = values[key[i]];
       final Random random = new Random();
-      meetings.add(Meeting(
-          eventName: data['Subject'],
-          isAllDay: true,
+      meetings.add(Cita(
+          event: data['Subject'],
+          diario: true,
           from: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['StartTime']),
           to: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['EndTime']),
           background: Colors.red,
-          resourceId: data['ResourceId']));
+          user: data['ResourceId']));
     }
   }
 
@@ -154,8 +139,8 @@ List<Meeting> _getDataSource(querySnapshot) {
       resourceId: '02')); */
   return meetings;
 }
-/* MeetingDataSource _getCalendarDataSource([List<Meeting> collection]) {
-  List<Meeting> meetings = collection ?? <Meeting>[];
+/* MeetingDataSource _getCalendarDataSource([List<Cita> collection]) {
+  List<Cita> meetings = collection ?? <Cita>[];
   List<CalendarResource> resourceColl = <CalendarResource>[];
   resourceColl.add(CalendarResource(
     displayName: 'John',
@@ -166,12 +151,12 @@ List<Meeting> _getDataSource(querySnapshot) {
 } */
 
 class MeetingDataSource extends CalendarDataSource {
-  /* MeetingDataSource(List<Meeting> source, List<CalendarResource> resourceColl) {
+  /* MeetingDataSource(List<Cita> source, List<CalendarResource> resourceColl) {
     appointments = source;
     resources = resourceColl;
   } */
 
-  MeetingDataSource(List<Meeting> source) {
+  MeetingDataSource(List<Cita> source) {
     appointments = source;
   }
 
