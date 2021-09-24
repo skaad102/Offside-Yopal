@@ -6,7 +6,7 @@ import 'package:offside_yopal/app/ui/routes/routes.dart';
 import 'package:flutter_meedu/router.dart' as router;
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Offside Yopal',
         navigatorKey: router.navigatorKey,
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.CALENDAR,
+        initialRoute: Routes.CALENDARIO,
         darkTheme: theme.darkTheme,
         theme: theme.lightTheme,
         themeMode: theme.mode,
