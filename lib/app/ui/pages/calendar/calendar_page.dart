@@ -81,13 +81,13 @@ class CalendarPageState extends State<CalendarPage> {
           data = values[key[i]];
           collection = <Cita>[];
           final Random random = new Random();
-          collection.add(Cita(
+          /*  collection.add(Cita(
               event: data['Subject'],
               diario: true,
               from: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['StartTime']),
               to: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['EndTime']),
-              background: _colorCollection[random.nextInt(9)],
-              user: data['ResourceId']));
+              background: 'sadasd',
+              user: data['ResourceId'])); */
         }
       } else {
         return Center(
@@ -120,13 +120,13 @@ List<Cita> _getDataSource(querySnapshot) {
     for (int i = 0; i < key.length; i++) {
       data = values[key[i]];
       final Random random = new Random();
-      meetings.add(Cita(
+      /* meetings.add(Cita(
           event: data['Subject'],
           diario: true,
           from: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['StartTime']),
           to: DateFormat('dd/MM/yyyy HH:mm:ss').parse(data['EndTime']),
-          background: Colors.red,
-          user: data['ResourceId']));
+          background: 'asd',
+          user: data['ResourceId'])); */
     }
   }
 
