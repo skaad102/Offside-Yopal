@@ -34,7 +34,8 @@ class _AddCitaState extends State<AddCita> {
     // TODO: implement initState
     super.initState();
     initializeDateFormatting('es_ES', null);
-
+    final citas = citaProvider.cargarCitas();
+    print('🔥🔥🔥$citas');
     if (widget.cita == null) {
       desde = DateTime.now();
       hasta = DateTime.now().add(const Duration(hours: 1));
@@ -73,7 +74,7 @@ class _AddCitaState extends State<AddCita> {
   /* appbar custom */
   _customAppBar() {
     return AppBar(
-      backgroundColor: Colors.red,
+      backgroundColor: Color(0xff2176a3),
       leading: const CloseButton(),
       actions: <Widget>[
         ElevatedButton.icon(
@@ -111,7 +112,6 @@ class _AddCitaState extends State<AddCita> {
   }
 
   Future saveForm() async {
-    print('😪😪😪😪');
     final isValid = _keyFrom.currentState!.validate();
     final controllerFecha = fechaProvider.read.fecha;
     // TODO: ver si existe
@@ -119,12 +119,12 @@ class _AddCitaState extends State<AddCita> {
     final to = controllerFecha.add(const Duration(hours: 1));
     if (isValid) {
       cita.user = "123";
-      cita.from = from;
-      cita.to = to;
-      cita.background = Colors.blue;
+      cita.from = from.toString();
+      cita.to = to.toString();
+      cita.background = Color.fromRGBO(12, 36, 9, 1).toString();
       cita.description = 'holii';
       cita.diario = false;
-      cita.event = 'Goll';
+      cita.event = _textControl.text;
       citaProvider.addCita(cita);
     }
   }
