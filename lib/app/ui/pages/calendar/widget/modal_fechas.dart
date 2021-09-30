@@ -8,8 +8,8 @@ final fechaProvider = SimpleProvider(
 );
 
 class ModalFechas extends StatefulWidget {
-  final DateTime desde, hasta;
-  ModalFechas(this.desde, this.hasta, {Key? key}) : super(key: key);
+  final DateTime desde;
+  const ModalFechas(this.desde, {Key? key}) : super(key: key);
 
   @override
   _ModalFechasState createState() => _ModalFechasState();
@@ -40,7 +40,6 @@ class _ModalFechasState extends State<ModalFechas> {
   }
 
   Widget _inputFecha(date) => Row(
-        // TODO: traer que fechas estan disponibles
         children: [
           /* los 4 inputs de fechas */
           Consumer(
@@ -118,7 +117,7 @@ class _ModalFechasState extends State<ModalFechas> {
         Duration hora = Duration(hours: horaDia.hour, minutes: 00);
         return date.add(hora);
       }
-      Duration hora = Duration(hours: horaDia.hour + 1, minutes: 00);
+      Duration hora = Duration(hours: horaDia.hour, minutes: 00);
       return date.add(hora);
     }
   }
