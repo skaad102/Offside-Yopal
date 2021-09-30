@@ -7,12 +7,9 @@ class AddCitaController {
   final _url = 'offside-yopal-default-rtdb.firebaseio.com';
 
   Future<bool> addCita(Cita cita) async {
-    print('🔥🔥🔥 ${cita.toJson()}');
     final url = Uri.https(_url, 'CalendarData.json');
     final repose = await http.post(url, body: citaToJson(cita));
     final decoDate = jsonDecode(repose.body);
-    print(decoDate);
-
     return true;
   }
 
@@ -20,9 +17,7 @@ class AddCitaController {
     final url = Uri.https(_url, 'CalendarData.json');
     final List<Cita> citas = [];
     final response = await http.get(url);
-
     final Map<String, dynamic> decode = jsonDecode(response.body);
-
     decode.forEach((key, value) {
       final cita = Cita.fromJson(value);
       cita.user = key;
