@@ -3,6 +3,8 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:offside_yopal/app/ui/routes/routes.dart';
 
 class BotonAgregarCita extends StatelessWidget {
+  const BotonAgregarCita({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
