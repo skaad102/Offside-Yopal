@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/flutter_meedu.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:offside_yopal/app/ui/pages/calendar/controller/add_controller.dart';
-import 'controller/fecha_controller.dart';
 import 'widget/modal_fechas.dart';
 import 'model/Cita.dart';
-
-final fechaProvider = SimpleProvider(
-  (_) => FechaController(),
-);
 
 class AddCita extends StatefulWidget {
   final Cita? cita;
@@ -23,7 +17,7 @@ class AddCita extends StatefulWidget {
 }
 
 class _AddCitaState extends State<AddCita> {
-  late DateTime desde, hasta;
+  late DateTime desde;
   final _keyFrom = GlobalKey<FormState>();
   final _textControl = TextEditingController();
   final citaProvider = AddCitaController();
@@ -38,7 +32,6 @@ class _AddCitaState extends State<AddCita> {
     print('🔥🔥🔥$citas');
     if (widget.cita == null) {
       desde = DateTime.now();
-      hasta = DateTime.now().add(const Duration(hours: 1));
     }
   }
 
@@ -62,7 +55,7 @@ class _AddCitaState extends State<AddCita> {
                   _inputCita(),
                   const SizedBox(height: 10),
                   /* TimePicker(desde, hasta), */
-                  ModalFechas(desde, hasta),
+                  ModalFechas(desde),
                 ],
               )),
         ),
@@ -103,6 +96,7 @@ class _AddCitaState extends State<AddCita> {
           labelText: 'Evento',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
       onChanged: (val) {},
+      onFieldSubmitted: (_) => saveForm(),
       validator: (nomCita) {
         (nomCita != null && nomCita.isEmpty)
             ? 'Este Campo no puede estar vacio'
@@ -113,12 +107,12 @@ class _AddCitaState extends State<AddCita> {
 
   Future saveForm() async {
     final isValid = _keyFrom.currentState!.validate();
-    final controllerFecha = fechaProvider.read.fecha;
+    final controllerFecha = fechaProvider.read.fechaFrom;
     // TODO: ver si existe
     final from = controllerFecha;
     final to = controllerFecha.add(const Duration(hours: 1));
     if (isValid) {
-      cita.user = "123";
+      cita.user = "correo@correo";
       cita.from = from.toString();
       cita.to = to.toString();
       cita.background = Color.fromRGBO(12, 36, 9, 1).toString();
@@ -127,5 +121,6 @@ class _AddCitaState extends State<AddCita> {
       cita.event = _textControl.text;
       citaProvider.addCita(cita);
     }
+    Navigator.pop(context);
   }
 }
