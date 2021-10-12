@@ -2,46 +2,46 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
-Cita citaFromJson(String str) => Cita.fromJson(json.decode(str));
+Cita citaFromJson(String str, Color color) =>
+    Cita.fromJson(json.decode(str), color);
 
 String citaToJson(Cita data) => jsonEncode(data.toJson());
 
 class Cita {
   Cita({
-    this.user,
-    this.event,
+    this.resourceId,
+    this.eventName,
     this.from,
     this.to,
-    this.diario,
+    this.isAllDay,
     this.background,
     this.description,
   });
 
-  String? user;
-  String? event;
-  String? from;
-  String? to;
-  bool? diario;
-  String? background;
+  String? resourceId;
+  String? eventName;
+  DateTime? from;
+  DateTime? to;
+  bool? isAllDay;
+  Color? background;
   String? description;
 
-  factory Cita.fromJson(Map<String, dynamic> json) => Cita(
-        user: json["user"],
-        event: json["event"],
-        from: (json["from"]),
-        to: (json["to"]),
-        diario: json["diario"],
-        background: json["background"],
+  factory Cita.fromJson(Map<String, dynamic> json, Color color) => Cita(
+        resourceId: json["resourceId"],
+        eventName: json["eventName"],
+        from: json["from"].toDate(),
+        to: json["to"].toDate(),
+        isAllDay: json["isAllDay"],
+        background: color,
         description: json["description"],
       );
 
   Map<String, dynamic> toJson() => {
-        "user": user,
-        "event": event,
-        "from": from.toString(),
-        "to": to.toString(),
-        "diario": diario,
-        "background": background.toString(),
+        "resourceId": resourceId,
+        "eventName": eventName,
+        "from": from,
+        "to": to,
+        "isAllDay": isAllDay,
         "description": description,
       };
 }
