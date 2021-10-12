@@ -1,28 +1,42 @@
-import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_meedu/flutter_meedu.dart';
 import 'package:offside_yopal/app/ui/pages/calendar/model/Cita.dart';
-import 'package:http/http.dart' as http;
 
-class AddCitaController {
+import 'event_data_source.dart';
+
+final citaProvider = SimpleProvider(
+  (_) => AddCitaController(),
+);
+
+class AddCitaController extends SimpleNotifier {
   final _url = 'offside-yopal-default-rtdb.firebaseio.com';
 
-  Future<bool> addCita(Cita cita) async {
-    final url = Uri.https(_url, 'CalendarData.json');
-    final repose = await http.post(url, body: citaToJson(cita));
-    final decoDate = jsonDecode(repose.body);
-    return true;
+  MeetingDataSource? _events;
+
+  MeetingDataSource? get events => _events;
+
+  ///añadir datos con firestre
+  /* FireStore implementado */
+  Future<DocumentReference> addDocument(
+      CollectionReference collection, Cita cita) async {
+    return await collection.add(cita.toJson());
   }
 
-  Future<List<Cita>> cargarCitas() async {
-    final url = Uri.https(_url, 'CalendarData.json');
-    final List<Cita> citas = [];
-    final response = await http.get(url);
-    final Map<String, dynamic> decode = jsonDecode(response.body);
-    decode.forEach((key, value) {
-      final cita = Cita.fromJson(value);
-      cita.user = key;
-      citas.add(cita);
-    });
-    return citas;
-  }
+  ///traer los dats de fistore
+  /* Future<void> fetchAllCitas(CollectionReference collection) async {
+    final snapShotsValue = await collection.get();
+
+    List<Cita> citas = snapShotsValue.docs
+        .map((e) => Cita(
+              eventName: e.data()['description'],
+              from: e.data()['from'].toDate(),
+              to: e.data()['to'].toDate(),
+              background: const Color(0x7F7FF3FF),
+              isAllDay: e.data()['isAllDay'],
+            ))
+        .toList();
+    _events = MeetingDataSource(citas);
+    notify();
+  } */
 }
