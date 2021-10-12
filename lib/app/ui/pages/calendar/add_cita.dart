@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:offside_yopal/app/ui/pages/calendar/controller/add_controller.dart';
 import 'widget/modal_fechas.dart';
 import 'model/Cita.dart';
@@ -28,8 +29,7 @@ class _AddCitaState extends State<AddCita> {
     // TODO: implement initState
     super.initState();
     initializeDateFormatting('es_ES', null);
-    final citas = citaProvider.cargarCitas();
-    print('🔥🔥🔥$citas');
+    /* final citas = citaProvider.cargarCitas(); */
     if (widget.cita == null) {
       desde = DateTime.now();
     }
@@ -111,15 +111,16 @@ class _AddCitaState extends State<AddCita> {
     // TODO: ver si existe
     final from = controllerFecha;
     final to = controllerFecha.add(const Duration(hours: 1));
+    final collection =
+        FirebaseFirestore.instance.collection('citas_calendario_1');
     if (isValid) {
-      cita.user = "correo@correo";
-      cita.from = from.toString();
-      cita.to = to.toString();
-      cita.background = Color.fromRGBO(12, 36, 9, 1).toString();
+      cita.resourceId = "correo@correo";
+      cita.from = from;
+      cita.to = to;
       cita.description = 'holii';
-      cita.diario = false;
-      cita.event = _textControl.text;
-      citaProvider.addCita(cita);
+      cita.isAllDay = false;
+      cita.eventName = _textControl.text;
+      citaProvider.addDocument(collection, cita);
     }
     Navigator.pop(context);
   }
